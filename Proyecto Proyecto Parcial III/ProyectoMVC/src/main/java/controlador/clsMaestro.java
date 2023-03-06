@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controlador;
+package controlador;
 import java.util.List;
-import Modelo.daoMaestro;
+import modelo.daoMaestro;
 /**
  *
  * @author visitante

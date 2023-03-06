@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo;
+package modelo;
 
-import Controlador.clsMaestro;
+import controlador.clsMaestro;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
