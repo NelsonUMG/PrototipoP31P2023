@@ -1,0 +1,11 @@
+commit 478a4709a4683ab5dbbb4890addb8db6bd982e23
+Author: NelsonUMG <npinedac3@miumg.edu.gt>
+Date:   Mon Mar 6 11:31:40 2023 -0600
+
+    Agregando el primer destalles a trabajar en el prototipo
+
+commit 74889336f4b44c4952cb7dfc1651c0e8146dc8c1
+Author: Nelson Pineda <99105121+NelsonUMG@users.noreply.github.com>
+Date:   Mon Mar 6 11:24:02 2023 -0600
+
+    Initial commit
