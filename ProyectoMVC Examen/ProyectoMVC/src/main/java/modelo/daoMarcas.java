@@ -17,11 +17,11 @@ import java.util.List;
 public class daoMarcas {
 
     private static final String SQL_SELECT = "SELECT codigo_marca, nombre_marca, estatus_marca FROM marcas";
-    private static final String SQL_INSERT = "INSERT INTO marcas (nombre_marca, estatus_marca) VALUES(?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO marcas (codigo_marca, nombre_marca, estatus_marca) VALUES(?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE marcas SET nombre_marca=?,  estatus_marca=? WHERE codigo_marca = ?";
     private static final String SQL_DELETE = "DELETE FROM marcas WHERE codigo_marca=?";
-    private static final String SQL_SELECT_NOMBRE = "SELECT codigo_marca, nombre_marca, estatus_marca FROM tbl_usuario WHERE  nombre_marca = ?";
-    private static final String SQL_SELECT_ID = "SELECT codigo_marca, nombre_marca, estatus_marca FROM tbl_usuario WHERE codigo_marca = ?";    
+    private static final String SQL_SELECT_NOMBRE = "SELECT codigo_marca, nombre_marca, estatus_marca FROM marcas WHERE  nombre_marca = ?";
+    private static final String SQL_SELECT_ID = "SELECT codigo_marca, nombre_marca, estatus_marca FROM marcas WHERE codigo_marca = ?";    
 
     public List<clsMarcas> consultaMarcas() {
         Connection conn = null;
@@ -34,7 +34,7 @@ public class daoMarcas {
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                String Cod = rs.getString("codigo_marcas");
+                String Cod = rs.getString("codigo_marca");
                 String nombre = rs.getString("nombre_marca");
                 String estatus = rs.getString("estatus_marca");
                 clsMarcas marca = new clsMarcas();
@@ -60,8 +60,9 @@ public class daoMarcas {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, marca.getNombreMarca());
-            stmt.setString(2, marca.getEstatusMarca());
+            stmt.setString(1, marca.getCodMarca());
+            stmt.setString(2, marca.getNombreMarca());
+            stmt.setString(3, marca.getEstatusMarca());
 
             System.out.println("ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
