@@ -6,7 +6,7 @@
 package vista;
 
 
-import controlador.clsUsuario;
+import controlador.clsMarcas;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -31,18 +31,18 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID");
+        modelo.addColumn("Codigo");
         modelo.addColumn("nombre");
-        modelo.addColumn("Contraseña");
-        clsUsuario usuario = new clsUsuario();
+        modelo.addColumn("Estatus");
+        clsMarcas marca = new clsMarcas();
         //VendedorDAO vendedorDAO = new VendedorDAO();
-        List<clsUsuario> listaUsuarios = usuario.getListadoUsuarios();
+        List<clsMarcas> listaMarcas = marca.getListadoMarcas();
         tablaUsuarios.setModel(modelo);
         String[] dato = new String[3];
-        for (int i = 0; i < listaUsuarios.size(); i++) {
-            dato[0] = Integer.toString(listaUsuarios.get(i).getIdUsuario());
-            dato[1] = listaUsuarios.get(i).getNombreUsuario();
-            dato[2] = listaUsuarios.get(i).getContrasenaUsuario();
+        for (int i = 0; i < listaMarcas.size(); i++) {
+            dato[0] = listaMarcas.get(i).getCodMarca();
+            dato[1] = listaMarcas.get(i).getNombreMarca();
+            dato[2] = listaMarcas.get(i).getEstatusMarca();
             modelo.addRow(dato);
         }       
     }
@@ -81,6 +81,8 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         label4 = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
+        label6 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -89,7 +91,7 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Mantenimiento Usuarios");
+        setTitle("Mantenimiento Marcas");
         setVisible(true);
 
         btnEliminar.setText("Eliminar");
@@ -114,7 +116,7 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
         });
 
         label1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label1.setText("Usuarios");
+        label1.setText("Codigo");
 
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +163,7 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
         txtContrasena.setOpaque(false);
 
         label5.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label5.setText("Contraseña");
+        label5.setText("Estatus");
 
         lb.setForeground(new java.awt.Color(204, 204, 204));
         lb.setText(".");
@@ -183,6 +185,13 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
             }
         });
 
+        label6.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label6.setText("Codigo");
+
+        txtCodigo.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtCodigo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        txtCodigo.setOpaque(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -192,12 +201,18 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label3)
-                            .addComponent(label5))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                            .addComponent(txtNombre))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label3)
+                                    .addComponent(label5))
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                                    .addComponent(txtNombre)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(label6)
+                                .addGap(29, 29, 29)
+                                .addComponent(txtCodigo)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -228,9 +243,9 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label1)
-                        .addGap(294, 573, Short.MAX_VALUE))
+                        .addGap(294, 596, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -243,7 +258,11 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(45, 45, 45)
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label6))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(label3))
@@ -268,7 +287,7 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
                             .addComponent(label4))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnActualizar)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
@@ -277,9 +296,9 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         int registrosBorrados=0;
-        clsUsuario usuario = new clsUsuario();
-        usuario.setIdUsuario(Integer.parseInt(txtbuscado.getText()));
-        registrosBorrados=usuario.setBorrarUsuario(usuario);
+        clsMarcas marca = new clsMarcas();
+        marca.setCodMarca(txtbuscado.getText());
+        registrosBorrados=marca.setBorrarMarca(marca);
         JOptionPane.showMessageDialog(null, "Registro Borrado\n", 
                     "Información del Sistema", JOptionPane.INFORMATION_MESSAGE);
         llenadoDeTablas();
@@ -287,10 +306,11 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        clsUsuario usuario = new clsUsuario();
-        usuario.setNombreUsuario(txtNombre.getText());
-        usuario.setContrasenaUsuario(txtContrasena.getText());
-        usuario.setIngresarUsuario(usuario);
+        clsMarcas marca = new clsMarcas();
+        marca.setCodMarca(txtCodigo.getText());
+        marca.setNombreMarca(txtNombre.getText());
+        marca.setEstatusMarca(txtContrasena.getText());
+        marca.setIngresarMarca(marca);
         JOptionPane.showMessageDialog(null, "Registro Ingresado\n", 
                     "Información del Sistema", JOptionPane.INFORMATION_MESSAGE);
         llenadoDeTablas();
@@ -299,22 +319,22 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        clsUsuario usuario = new clsUsuario();
+        clsMarcas marca = new clsMarcas();
         //usuario.setNombreUsuario(txtbuscado.getText());        
-        usuario.setIdUsuario(Integer.parseInt(txtbuscado.getText()));        
-        usuario = usuario.getBuscarInformacionUsuarioPorId(usuario);
-        System.out.println("Usuario retornado:" + usuario);        
-        txtNombre.setText(usuario.getNombreUsuario());
-        txtContrasena.setText(usuario.getContrasenaUsuario());
+        marca.setCodMarca(txtbuscado.getText());        
+        marca = marca.getBuscarInformacionMarcaPorId(marca);
+        System.out.println("Marca retornado:" + marca);        
+        txtNombre.setText(marca.getNombreMarca());
+        txtContrasena.setText(marca.getEstatusMarca());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 //        // TODO add your handling code here:
-        clsUsuario usuario = new clsUsuario();
-        usuario.setIdUsuario(Integer.parseInt(txtbuscado.getText()));
-        usuario.setNombreUsuario(txtNombre.getText());
-        usuario.setContrasenaUsuario(txtContrasena.getText());
-        usuario.setModificarUsuario(usuario);
+        clsMarcas marca = new clsMarcas();
+        marca.setCodMarca(txtbuscado.getText());
+        marca.setNombreMarca(txtNombre.getText());
+        marca.setEstatusMarca(txtContrasena.getText());
+        marca.setModificarMarca(marca);
         JOptionPane.showMessageDialog(null, "Registro Modificado\n", 
                     "Información del Sistema", JOptionPane.INFORMATION_MESSAGE);        
         llenadoDeTablas();
@@ -331,6 +351,7 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
         txtNombre.setText("");
         txtContrasena.setText("");
         txtbuscado.setText("");
+        txtCodigo.setText("");
     }
     public void habilitarBotones()
     {
@@ -381,10 +402,12 @@ public class frmMantenimientoMarcas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel label3;
     private javax.swing.JLabel label4;
     private javax.swing.JLabel label5;
+    private javax.swing.JLabel label6;
     private javax.swing.JLabel lb;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
     private javax.swing.JTable tablaUsuarios;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtContrasena;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtbuscado;

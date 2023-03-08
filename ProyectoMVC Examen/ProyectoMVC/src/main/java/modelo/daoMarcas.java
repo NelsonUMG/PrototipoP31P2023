@@ -53,7 +53,7 @@ public class daoMarcas {
         return marcas;
     }
 
-    public int ingresaMarcass(clsMarcas marca) {
+    public int ingresaMarcas(clsMarcas marca) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -76,7 +76,7 @@ public class daoMarcas {
         return rows;
     }
 
-    public int actualizaUsuarios(clsUsuario usuario) {
+    public int actualizaMarcas(clsMarcas marca) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -84,9 +84,9 @@ public class daoMarcas {
             conn = Conexion.getConnection();
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, usuario.getNombreUsuario());
-            stmt.setString(2, usuario.getContrasenaUsuario());
-            stmt.setInt(3, usuario.getIdUsuario());
+            stmt.setString(1, marca.getNombreMarca());
+            stmt.setString(2, marca.getEstatusMarca());
+            stmt.setString(3, marca.getCodMarca());
 
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -101,7 +101,7 @@ public class daoMarcas {
         return rows;
     }
 
-    public int borrarUsuarios(clsUsuario usuario) {
+    public int borrarMarcas(clsMarcas marca) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -110,7 +110,7 @@ public class daoMarcas {
             conn = Conexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, usuario.getIdUsuario());
+            stmt.setString(1, marca.getCodMarca());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados:" + rows);
         } catch (SQLException ex) {
@@ -123,27 +123,27 @@ public class daoMarcas {
         return rows;
     }
 
-    public clsUsuario consultaUsuariosPorNombre(clsUsuario usuario) {
+    public clsMarcas consultaMarcasPorNombre(clsMarcas marca) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             conn = Conexion.getConnection();
-            System.out.println("Ejecutando query:" + SQL_SELECT_NOMBRE + " objeto recibido: " + usuario);
+            System.out.println("Ejecutando query:" + SQL_SELECT_NOMBRE + " objeto recibido: " + marca);
             stmt = conn.prepareStatement(SQL_SELECT_NOMBRE);
             //stmt.setInt(1, usuario.getIdUsuario());            
-            stmt.setString(1, usuario.getNombreUsuario());
+            stmt.setString(1, marca.getNombreMarca());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("usuid");
-                String nombre = rs.getString("usunombre");
-                String contrasena = rs.getString("usucontrasena");
+                String Cod = rs.getString("codigo_marca");
+                String nombre = rs.getString("nombre_marca");
+                String estatus = rs.getString("estatus_marca");
 
                 //usuario = new clsUsuario();
-                usuario.setIdUsuario(id);
-                usuario.setNombreUsuario(nombre);
-                usuario.setContrasenaUsuario(contrasena);
-                System.out.println(" registro consultado: " + usuario);                
+                marca.setCodMarca(Cod);
+                marca.setNombreMarca(nombre);
+                marca.setEstatusMarca(estatus);
+                System.out.println(" registro consultado: " + estatus);                
             }
             //System.out.println("Registros buscado:" + persona);
         } catch (SQLException ex) {
@@ -155,29 +155,29 @@ public class daoMarcas {
         }
 
         //return personas;  // Si se utiliza un ArrayList
-        return usuario;
+        return marca;
     }
-    public clsUsuario consultaUsuariosPorId(clsUsuario usuario) {
+    public clsMarcas consultaMarcasPorId(clsMarcas marca) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             conn = Conexion.getConnection();
-            System.out.println("Ejecutando query:" + SQL_SELECT_NOMBRE + " objeto recibido: " + usuario);
+            System.out.println("Ejecutando query:" + SQL_SELECT_NOMBRE + " objeto recibido: " + marca);
             stmt = conn.prepareStatement(SQL_SELECT_ID);
-            stmt.setInt(1, usuario.getIdUsuario());            
+            stmt.setString(1, marca.getCodMarca());            
             //stmt.setString(1, usuario.getNombreUsuario());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("usuid");
-                String nombre = rs.getString("usunombre");
-                String contrasena = rs.getString("usucontrasena");
+                String Cod = rs.getString("codigo_marca");
+                String nombre = rs.getString("nombre_marca");
+                String estatus = rs.getString("estatus_marca");
 
                 //usuario = new clsUsuario();
-                usuario.setIdUsuario(id);
-                usuario.setNombreUsuario(nombre);
-                usuario.setContrasenaUsuario(contrasena);
-                System.out.println(" registro consultado: " + usuario);                
+                marca.setCodMarca(Cod);
+                marca.setNombreMarca(nombre);
+                marca.setEstatusMarca(estatus);
+                System.out.println(" registro consultado: " + marca);                
             }
             //System.out.println("Registros buscado:" + persona);
         } catch (SQLException ex) {
@@ -189,6 +189,6 @@ public class daoMarcas {
         }
 
         //return personas;  // Si se utiliza un ArrayList
-        return usuario;
+        return marca;
     }    
 }

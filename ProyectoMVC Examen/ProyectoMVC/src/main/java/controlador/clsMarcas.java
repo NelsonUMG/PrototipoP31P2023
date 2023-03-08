@@ -65,8 +65,8 @@ public class clsMarcas {
     }
     public clsMarcas getBuscarInformacionMarcaPorId(clsMarcas marca)
     {
-        daoMarcas daoMarca = new daoMarcas();
-        return daoMarcas.consultaMarcasPorId(marca);
+        daoMarcas daomarca = new daoMarcas();
+        return daomarca.consultaMarcasPorId(marca);
     }    
     public List<clsMarcas> getListadoMarcas()
     {
