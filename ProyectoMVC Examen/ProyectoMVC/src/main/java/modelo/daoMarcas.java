@@ -18,30 +18,30 @@ public class daoMarcas {
 
     private static final String SQL_SELECT = "SELECT codigo_marca, nombre_marca, estatus_marca FROM marcas";
     private static final String SQL_INSERT = "INSERT INTO marcas (nombre_marca, estatus_marca) VALUES(?, ?)";
-    private static final String SQL_UPDATE = "UPDATE marcas SET usunombre=?, usucontrasena=? WHERE usuid = ?";
-    private static final String SQL_DELETE = "DELETE FROM tbl_usuario WHERE usuid=?";
-    private static final String SQL_SELECT_NOMBRE = "SELECT usuid, usunombre, usucontrasena FROM tbl_usuario WHERE usunombre = ?";
-    private static final String SQL_SELECT_ID = "SELECT usuid, usunombre, usucontrasena FROM tbl_usuario WHERE usuid = ?";    
+    private static final String SQL_UPDATE = "UPDATE marcas SET nombre_marca=?,  estatus_marca=? WHERE codigo_marca = ?";
+    private static final String SQL_DELETE = "DELETE FROM marcas WHERE codigo_marca=?";
+    private static final String SQL_SELECT_NOMBRE = "SELECT codigo_marca, nombre_marca, estatus_marca FROM tbl_usuario WHERE  nombre_marca = ?";
+    private static final String SQL_SELECT_ID = "SELECT codigo_marca, nombre_marca, estatus_marca FROM tbl_usuario WHERE codigo_marca = ?";    
 
-    public List<clsUsuario> consultaUsuarios() {
+    public List<clsMarcas> consultaMarcas() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        List<clsUsuario> usuarios = new ArrayList<>();
+        List<clsMarcas> marcas = new ArrayList<>();
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("usuid");
-                String nombre = rs.getString("usunombre");
-                String contrasena = rs.getString("usucontrasena");
-                clsUsuario usuario = new clsUsuario();
-                usuario.setIdUsuario(id);
-                usuario.setNombreUsuario(nombre);
-                usuario.setContrasenaUsuario(contrasena);
-                usuarios.add(usuario);
+                String Cod = rs.getString("codigo_marcas");
+                String nombre = rs.getString("nombre_marca");
+                String estatus = rs.getString("estatus_marca");
+                clsMarcas marca = new clsMarcas();
+                marca.setCodMarca(Cod);
+                marca.setNombreMarca(nombre);
+                marca.setEstatusMarca(estatus);
+                marcas.add(marca);
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -50,18 +50,18 @@ public class daoMarcas {
             Conexion.close(stmt);
             Conexion.close(conn);
         }
-        return usuarios;
+        return marcas;
     }
 
-    public int ingresaUsuarios(clsUsuario usuario) {
+    public int ingresaMarcass(clsMarcas marca) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, usuario.getNombreUsuario());
-            stmt.setString(2, usuario.getContrasenaUsuario());
+            stmt.setString(1, marca.getNombreMarca());
+            stmt.setString(2, marca.getEstatusMarca());
 
             System.out.println("ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
